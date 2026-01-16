@@ -25,16 +25,23 @@ class ChatListPanel : JPanel() {
 
     private fun refreshChats() {
         ApplicationManager.getApplication().executeOnPooledThread {
-            val spaces = GoogleChatService.instance.listSpaces()
-            
-            ApplicationManager.getApplication().invokeLater {
-                listModel.clear()
-                if (spaces.isEmpty()) {
-                    chatList.setEmptyText("No chats found.")
-                } else {
-                    spaces.forEach { space ->
-                        listModel.addElement(space.displayName ?: "Unknown Chat")
+            try {
+                val spaces = GoogleChatService.instance.listSpaces()
+                
+                ApplicationManager.getApplication().invokeLater {
+                    listModel.clear()
+                    if (spaces.isEmpty()) {
+                        chatList.setEmptyText("No chats found.")
+                    } else {
+                        spaces.forEach { space ->
+                            listModel.addElement(space.displayName ?: "Unknown Chat")
+                        }
                     }
+                }
+            } catch (e: Exception) {
+                ApplicationManager.getApplication().invokeLater {
+                    listModel.clear()
+                    chatList.setEmptyText("Error: ${e.message}")
                 }
             }
         }

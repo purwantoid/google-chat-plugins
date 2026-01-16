@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.purwantoid.googlechat</id>
     <name>Google Chat Integration</name>
-    <vendor email="user@example.com" url="https://www.yourcompany.com">YourCompany</vendor>
+    <vendor url="https://github.com/purwantoid">purwantoid</vendor>
 
     <description><![CDATA[
     Basic Google Chat integration for IntelliJ-based IDEs.

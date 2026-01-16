@@ -52,18 +52,30 @@ class GoogleChatService {
     }
 
     fun listSpaces(): List<com.google.api.services.chat.v1.model.Space> {
-        val client = getChatClient() ?: return emptyList()
-        return try {
+        val client = getChatClient() ?: throw Exception("Not authenticated. Please configure settings.")
+        try {
             val response = client.spaces().list().execute()
-            response.spaces ?: emptyList()
+            return response.spaces ?: emptyList()
         } catch (e: Exception) {
             logger.error("Failed to list spaces", e)
-            emptyList()
+            throw e
         }
     }
 
     fun login() {
         authorize(true)
+    }
+
+    fun logout() {
+        try {
+            val file = File(CREDENTIALS_FILE_PATH)
+            if (file.exists()) {
+                file.deleteRecursively()
+            }
+            logger.info("Logged out successfully")
+        } catch (e: Exception) {
+            logger.error("Error logging out", e)
+        }
     }
 
     private fun buildFlow(settings: GoogleChatSettingsState): GoogleAuthorizationCodeFlow? {
