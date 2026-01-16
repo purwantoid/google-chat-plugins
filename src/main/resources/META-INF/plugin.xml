@@ -1,0 +1,21 @@
+<idea-plugin>
+    <id>com.purwantoid.googlechat</id>
+    <name>Google Chat Integration</name>
+    <vendor email="user@example.com" url="https://www.yourcompany.com">YourCompany</vendor>
+
+    <description><![CDATA[
+    Basic Google Chat integration for IntelliJ-based IDEs.
+    ]]></description>
+
+    <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow id="Google Chat" secondary="true" icon="AllIcons.General.Web" anchor="right"
+                    factoryClass="com.purwantoid.googlechat.GoogleChatToolWindowFactory"/>
+        <applicationConfigurable parentId="tools" instance="com.purwantoid.googlechat.settings.GoogleChatSettingsConfigurable"
+                                 id="com.purwantoid.googlechat.settings.GoogleChatSettingsConfigurable"
+                                 displayName="Google Chat"/>
+    </extensions>
+</idea-plugin>

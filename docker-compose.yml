@@ -1,0 +1,10 @@
+services:
+  build:
+    build: .
+    volumes:
+      - .:/app
+      - gradle-cache:/root/.gradle
+    command: ./gradlew buildPlugin
+    
+volumes:
+  gradle-cache:
